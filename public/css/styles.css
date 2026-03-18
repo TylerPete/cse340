@@ -60,3 +60,23 @@ body {
   width: 100vw;
   aspect-ratio: 100 / 51;
 }
+
+.cta-float {
+  background-color: rgba(255, 255, 255, 0.4);
+  max-width: 180px;
+  padding: 5px;
+}
+
+.cta-float>h2, .cta-float>ul, .cta-float>button {
+  margin: 0;
+}
+
+
+.cta-float>ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* .cta-float>ul>li {
+  margin: 0;
+} */
