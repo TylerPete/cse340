@@ -4,3 +4,59 @@
 *:after {
   box-sizing: border-box;
 }
+
+:root {
+  --dark-background-or-text: #070707;
+}
+
+body {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+#top-header {
+  display: grid;
+  grid-template-columns: 6fr 1fr;
+}
+
+.siteName>a {
+  font-size: 2rem;
+  text-decoration: none;
+  color: var(--dark-background-or-text);
+}
+
+.siteName>a:visited {
+  text-decoration: none;
+  color: var(--dark-background-or-text);
+}
+
+#tools>a {
+  text-decoration: none;
+  color: var(--dark-background-or-text);
+}
+
+.nav-bar {
+  background-color: var(--dark-background-or-text);
+}
+
+.nav-bar ul {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+}
+
+.nav-bar li {
+  color: white;
+  list-style: none;
+  line-height: 44px;
+  cursor: pointer;
+}
+
+.hero {
+  background-image: url("../images/vehicles/delorean.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100vw;
+  aspect-ratio: 100 / 51;
+}
