@@ -235,3 +235,28 @@ VALUES (
         'White',
         5
     );
+-- Statement #4
+UPDATE inventory
+SET inv_description = REPLACE(
+        inv_description,
+        'the small interiors',
+        'a huge interior'
+    )
+WHERE inv_make = 'GM'
+    AND inv_model = 'Hummer';
+-- Statement #6
+UPDATE inventory
+SET inv_image = SUBSTRING(
+        inv_image
+        FROM 1 FOR 7
+    ) || '/vehicles' || SUBSTRING(
+        inv_image
+        FROM 8
+    ),
+    inv_thumbnail = SUBSTRING(
+        inv_thumbnail
+        FROM 1 FOR 7
+    ) || '/vehicles' || SUBSTRING(
+        inv_thumbnail
+        FROM 8
+    );

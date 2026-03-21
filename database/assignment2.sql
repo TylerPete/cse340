@@ -34,3 +34,19 @@ SELECT inventory.inv_make,
 FROM inventory
     JOIN classification ON inventory.classification_id = classification.classification_id
 WHERE classification.classification_name = 'Sport';
+-- Statement #6
+UPDATE inventory
+SET inv_image = SUBSTRING(
+        inv_image
+        FROM 1 FOR 7
+    ) || '/vehicles' || SUBSTRING(
+        inv_image
+        FROM 8
+    ),
+    inv_thumbnail = SUBSTRING(
+        inv_thumbnail
+        FROM 1 FOR 7
+    ) || '/vehicles' || SUBSTRING(
+        inv_thumbnail
+        FROM 8
+    );
