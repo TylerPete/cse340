@@ -66,10 +66,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-bar li {
-  color: white;
   list-style: none;
   line-height: 44px;
   cursor: pointer;
+}
+
+.nav-bar>ul>li>a {
+    color: white;
+    text-decoration: none;
 }
 
 .hero {

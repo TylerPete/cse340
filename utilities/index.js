@@ -15,8 +15,8 @@ Util.getNav = async function (req, res, next) {
         '" title="See our inventory of ' +
         row.classification_name +
         ' vehicles">' +
+        row.classification_name +
         "</a>"
-
         list += "</li>"
     })
     list += "</ul>"
