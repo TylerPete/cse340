@@ -152,6 +152,46 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
 }
 
+#inv-display {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+#inv-display>li {
+  border: 1px solid var(--dark-background-or-text);
+  border-radius: 5px;
+  display: grid;
+  grid-template-rows: 10fr 8fr;
+  max-width: 190px;
+
+  a {
+    max-width: 190px;
+
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+#inv-display hr {
+  border: none;
+  height: 3px;
+  background-color: var(--dark-background-or-text);
+}
+
+.namePrice {
+  text-align: center;
+  
+  h2 {
+    font-size: 1.25em;
+  }
+}
+
+
 @media screen and (min-width: 600px) {
   html {
     background-image: url("../images/site/small_check.jpg");
