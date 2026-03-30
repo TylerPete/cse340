@@ -25,4 +25,15 @@ async function getInventoryByClassificationId(classification_id) {
     }
 }
 
+/* ***********************
+ * Get all vehicle details by inventory_id
+ * *********************** */
+async function getVehicleDetailsByInventoryId(PARAMETER_HERE) {
+    try {
+        // CODE HERE
+    } catch (error) {
+        // CODE HERE
+    }
+}
+
 module.exports = {getClassifications, getInventoryByClassificationId}
