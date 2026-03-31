@@ -60,7 +60,23 @@ Util.buildClassificationGrid = async function(data) {
  * Build the vehicle details view HTML
  * **************************** */
 Util.buildVehicleDetailsGrid = async function(data) {
-    // CODE HERE
+    let grid
+    if (data.length > 0) {
+        grid = '<div class="grid-wrapper">'
+        grid += '<div class="vehicle-image">'
+        grid += `<img src="${data[0].inv_image}" alt="${data[0].inv_make}">`
+        grid += '</div>'
+        grid += '<div class="vehicle-info">'
+        grid += '<h2>' + data[0].inv_make + ' ' + data[0].inv_model + ' Details</h2>'
+        grid += '<p><span>Price: </span>$' + new Intl.NumberFormat('en-US').format(data[0].inv_price) + '</p>'
+        grid += '<p><span>Description: </span>' + data[0].inv_description + '</p>'
+        grid += '<p><span>Color: </span>' + data[0].inv_color + '</p>'
+        grid += '<p><span>Miles: </span>' + data[0].inv_miles + '</p>'
+        grid += '</div></div>'
+    } else {
+        grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    }
+    return grid
 }
 
 /* ********************************************

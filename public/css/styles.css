@@ -168,14 +168,14 @@ h1, h2, h3, h4, h5, h6 {
   display: grid;
   grid-template-rows: 10fr 8fr;
   max-width: 190px;
+}
 
-  a {
-    max-width: 190px;
+#inv-display>li>a {
+  max-width: 190px;
+}
 
-    img {
-      max-width: 100%;
-    }
-  }
+#inv-display>li>a>img {
+  max-width: 100%;
 }
 
 #inv-display hr {
@@ -186,20 +186,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .namePrice {
   text-align: center;
-  
-  h2 {
+}
+
+.namePrice>h2 {
     font-size: 1.25em;
-  }
 }
 
-.vehicle-image {
-
-  img {
+.vehicle-image>img {
     max-width: 100%;
-  }
 }
 
-.vehicle-info {
+/* .vehicle-info {
   p {
     padding: 0.9rem;
     margin: 5px;
@@ -212,6 +209,20 @@ h1, h2, h3, h4, h5, h6 {
   p:nth-child(even) {
     background-color: var(--light-grey-contrast);
   }
+} */
+
+
+.vehicle-info>p {
+    padding: 0.9rem;
+    margin: 5px;
+}
+
+.vehicle-info>p>span {
+  font-weight: bold;
+}
+
+.vehicle-info>p:nth-child(even) {
+  background-color: var(--light-grey-contrast);
 }
 
 
