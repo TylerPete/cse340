@@ -11,4 +11,7 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 // Route to build one vehicle details view
 router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByInventoryId));
 
+
+router.get("/error-test", invController.triggerError);
+
 module.exports = router;

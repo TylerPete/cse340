@@ -10,8 +10,8 @@ invCont.buildByClassificationId = async function (req, res, next) {
     const classification_id = req.params.classificationId
     const data = await invModel.getInventoryByClassificationId(classification_id)
     
-    console.log("Test log of classification data")
-    console.log(data);
+    // console.log("Test log of classification data")
+    // console.log(data);
     
     const grid = await utilities.buildClassificationGrid(data)
     let nav = await utilities.getNav()
@@ -40,6 +40,10 @@ invCont.buildByInventoryId = async function (req, res, next) {
         nav,
         grid,
     })
+}
+
+invCont.triggerError = function(req, res, next) {
+    next(new Error("Test 500 error"))
 }
 
 module.exports = invCont
