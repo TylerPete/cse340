@@ -33,6 +33,7 @@ app.use(session({
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function(req, res, next){
+  // res.locals.messages = require('express-messages')(req, res)
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
@@ -48,17 +49,6 @@ app.set("layout", "./layouts/layout") // not at views root
  * Routes
  *************************/
 app.use(static);
-
-// Test route (for flash messages)
-app.get("/test", (req, res) => {
-  req.flash("notice", "This is a flash message.")
-
-  console.log("AFTER SET:", req.session)
-
-  req.session.save(() => {
-    res.redirect("/")
-  })
-})
 
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
