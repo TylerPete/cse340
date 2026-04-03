@@ -49,17 +49,6 @@ app.set("layout", "./layouts/layout") // not at views root
  *************************/
 app.use(static);
 
-// Test route (for flash messages)
-app.get("/test", (req, res) => {
-  req.flash("notice", "This is a flash message.")
-
-  console.log("AFTER SET:", req.session)
-
-  req.session.save(() => {
-    res.redirect("/")
-  })
-})
-
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 
