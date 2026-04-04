@@ -1,0 +1,19 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<div class="form-div">
+    <form id="registration-form">
+        <p class="italic-required-statement">All fields are required.</p>
+        <fieldset>
+            <label for="account_firstname">First name<input type="text" required name="account_firstname" id="account_firstname"></label>
+            <label for="account_lastname">Last name<input type="text" required name="account_lastname" id="account_lastname"></label>
+            <label for="account_email">Email address<input type="email" required name="account_email" id="account_email"></label>
+            <label for="account_password">Password<input type="password" required name="account_password" id="account_password"></label>
+        
+            <button type="submit" id="register-button">Register</button>
+        </fieldset>
+    </form>
+</div>

@@ -258,6 +258,21 @@ input {
   margin: 10px 0;
 }
 
+#registration-form {
+  background-color: var(--dark-blue-form);
+  color: white;
+  padding: 1rem;
+  min-width: 250px;
+}
+
+#registration-form>fieldset {
+  border: 1px solid white;
+}
+
+#italic-required-statement {
+  font-style: italic;
+}
+
 @media screen and (min-width: 600px) {
   html {
     background-image: url("../images/site/small_check.jpg");
