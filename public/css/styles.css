@@ -269,7 +269,7 @@ input {
   border: 1px solid white;
 }
 
-#italic-required-statement {
+.italic-required-statement {
   font-style: italic;
 }
 
@@ -319,7 +319,7 @@ input {
     grid-template-columns: 5fr 6fr;
 }
 
-  #login-form {
+  #login-form, #registration-form {
     width: 50%;
     max-width: 350px;
   }
