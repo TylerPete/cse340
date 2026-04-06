@@ -17,7 +17,7 @@ validate.classificationRules = () => {
             .isAlpha()
             .withMessage("Classification name must contain only letters")
             .custom(async (classification_name) => {
-                const classificationExists = await invModelModel.checkExistingClassification(classification_name)
+                const classificationExists = await invModel.checkExistingClassification(classification_name)
                 if (classificationExists) {
                     throw new Error("Classification exists. Please use different classification name")
                 }
@@ -43,3 +43,5 @@ validate.checkClassificationData = async (req, res, next) => {
     }
     next()
 }
+
+module.exports = validate
