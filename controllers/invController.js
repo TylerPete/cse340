@@ -10,9 +10,6 @@ invCont.buildByClassificationId = async function (req, res, next) {
     const classification_id = req.params.classificationId
     const data = await invModel.getInventoryByClassificationId(classification_id)
     
-    // console.log("Test log of classification data")
-    // console.log(data);
-    
     const grid = await utilities.buildClassificationGrid(data)
     let nav = await utilities.getNav()
     const className = data[0].classification_name
@@ -39,6 +36,26 @@ invCont.buildByInventoryId = async function (req, res, next) {
         title: year + ' ' + make + ' ' + model,
         nav,
         grid,
+    })
+}
+
+invCont.buildVehicleManagement = async function (req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("./inventory/management", {
+        title: "Vehicle Management",
+        nav,
+    })
+}
+
+/* ******************
+ * Build add new classification view
+ * ****************** */
+invCont.buildAddClassification = async function (req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("./inventory/add-classification", {
+        title: "Add Classification",
+        nav,
+        errors: null
     })
 }
 

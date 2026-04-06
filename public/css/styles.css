@@ -233,14 +233,14 @@ input {
   justify-content: center;
 }
 
-#login-form {
+#login-form, #registration-form, #add-classification-form {
   background-color: var(--dark-blue-form);
   color: white;
   padding: 1rem;
   min-width: 250px;
 }
 
-#login-form>fieldset {
+#login-form>fieldset, #registration-form>fieldset, #add-classification-form>fieldset {
   border: 1px solid white;
 }
 
@@ -256,17 +256,6 @@ input {
   width: 90%;
   height: 40px;
   margin: 10px 0;
-}
-
-#registration-form {
-  background-color: var(--dark-blue-form);
-  color: white;
-  padding: 1rem;
-  min-width: 250px;
-}
-
-#registration-form>fieldset {
-  border: 1px solid white;
 }
 
 .italic-required-statement {
@@ -319,7 +308,7 @@ input {
     grid-template-columns: 5fr 6fr;
 }
 
-  #login-form, #registration-form {
+  #login-form, #registration-form, #add-classification-form {
     width: 50%;
     max-width: 350px;
   }
