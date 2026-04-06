@@ -59,6 +59,38 @@ invCont.buildAddClassification = async function (req, res, next) {
     })
 }
 
+/* ********************************
+ * Process New Classification Addition
+ * ****************************** */
+
+async function addNewClassification(req, res) {
+    let nav = await utilities.getNav()
+    const { classification_name } = req.body
+
+    const addResult = await invModel.addNewClassification(
+        classification_name
+    )
+
+    if (addResult) {
+        req.flash(
+            "notice",
+            `The ${classification_name} classification was successfully added.`
+        )
+        res.status(201).render("inventory/management", {
+            title: "Vehicle Management",
+            nav,
+            errors: null,
+        })
+    } else {
+        req.flash("notice", "Sorry, the classification addition failed.")
+        res.status(501).render("inventory/add-classification", {
+            title: "Add Classification",
+            nav,
+            errors: null,
+        })
+    }
+}
+
 invCont.triggerError = function(req, res, next) {
     next(new Error("Test 500 error"))
 }
