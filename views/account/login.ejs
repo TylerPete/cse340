@@ -13,8 +13,8 @@
     </ul>
 <% } %>
 
-<div class="form-div" action="/account/login" method="post">
-    <form id="login-form">
+<div class="form-div">
+    <form id="login-form" action="/account/login" method="post">
         <fieldset>
             <label for="account_email">Email:<input type="email" name="account_email" id="account_email" required value ="<%= locals.account_email %>"></label>
             <label for="account_password">Password:<input type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" name="account_password" id="account_password" required></label>
