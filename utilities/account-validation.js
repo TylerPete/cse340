@@ -1,4 +1,5 @@
 const utilities = require(".")
+const actModel = require("../models/account-model")
 const { body, validationResult } = require("express-validator")
 const validate = {}
 
@@ -11,30 +12,41 @@ validate.registrationRules = () => {
         body("account_firstname")
             .trim()
             .escape()
-            .notEmpty()
+            .notEmpty().withMessage("Please provide a first name.")
+            .bail()
             .isLength({ min: 1 })
-            .withMessage("Please provide a first name."), // on error this message is sent.
+            .withMessage("Please provide a valid first name."), // on error this message is sent.
 
         // lastname is required and must be string
         body("account_lastname")
             .trim()
             .escape()
-            .notEmpty()
+            .notEmpty().withMessage("Please provide a last name.")
+            .bail()
             .isLength( {min: 2 })
-            .withMessage("Please provide a last name."), //on error this message is sent.
+            .withMessage("Please provide a valid last name."), //on error this message is sent.
 
         // valid email is required and cannot already exist in the DB
         body("account_email")
             .trim()
             .escape()
-            .notEmpty()
+            .notEmpty().withMessage("Please provide an email address.")
+            .bail()
             .isEmail()
-            .normalizeEmail(), // refer to validator.js docs
+            .normalizeEmail() // refer to validator.js docs
+            .withMessage("A valid email is required.")
+            .custom(async (account_email) => {
+                const emailExists = await actModel.checkExistingEmail(account_email)
+                if (emailExists) {
+                    throw new Error("Email exists. Please log in or use different email")
+                }
+            }),
 
         // password is required and must be strong password
         body("account_password")
             .trim()
-            .notEmpty()
+            .notEmpty().withMessage("Please provide a password.")
+            .bail()
             .isStrongPassword({
                 minLength: 12,
                 minLowercase: 1,
