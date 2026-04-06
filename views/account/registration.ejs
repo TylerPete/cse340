@@ -11,7 +11,7 @@
             <label for="account_firstname">First name<input type="text" required name="account_firstname" id="account_firstname"></label>
             <label for="account_lastname">Last name<input type="text" required name="account_lastname" id="account_lastname"></label>
             <label for="account_email">Email address<input type="email" required name="account_email" id="account_email"></label>
-            <label for="account_password">Password<input type="password" required name="account_password" id="account_password"></label>
+            <label for="account_password">Password<input type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required name="account_password" id="account_password"></label>
         
             <p class="italic-required-statement">Passwords must have a minimum of 12 characters and include 1 capital letter, 1 number, and 1 special character.</p>
 
