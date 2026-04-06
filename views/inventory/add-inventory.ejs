@@ -1,0 +1,28 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<%- messages() %>
+<% } else {
+    res.redirect('/')
+} %>
+
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<div class="form-div">
+    <form id="add-inventory-form" action="/inv/add-inventory" method="post">
+        <p class="italic-required-statement">All fields are required.</p>
+        <fieldset>
+            <!-- SELECT element with classification options -->
+
+            <label for="inv_make">Make<input type="text" name="inv_make" id="inv_make" pattern=".{3,}" placeholder="Min of 3 characters" required></label>
+            <!-- More inputs -->
+            
+            <button type="submit" id="login-button">ADD VEHICLE</button>
+        </fieldset>
+    </form>
+</div>
