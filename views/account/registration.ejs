@@ -1,8 +1,18 @@
 <% if (title) { %>
 <h1><%= title %></h1>
+<%- messages() %>
 <% } else {
     res.redirect('/')
 } %>
+
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+}
 
 <div class="form-div">
     <form action="/account/registration" method="post" id="registration-form">
