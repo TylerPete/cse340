@@ -78,6 +78,11 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
 }
 
+.notice {
+  color: darkred;
+  font-style: italic;
+}
+
 .hero {
   background-image: url("../images/vehicles/delorean.jpg");
   background-size: contain;
