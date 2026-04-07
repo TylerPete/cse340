@@ -52,7 +52,6 @@ validate.inventoryRules = () => {
         // make is required and must be 3 or more characters
         body("inv_make")
             .trim()
-            .escape()
             .notEmpty().withMessage("Please provide a vehicle make.")
             .bail()
             .isLength({ min: 3 })
@@ -61,7 +60,6 @@ validate.inventoryRules = () => {
         // model is required and must be 3 or more characters
         body("inv_model")
             .trim()
-            .escape()
             .notEmpty().withMessage("Please provide a vehicle model.")
             .bail()
             .isLength({ min: 3 })
@@ -70,25 +68,21 @@ validate.inventoryRules = () => {
         // description is required
         body("inv_description")
             .trim()
-            .escape()
             .notEmpty().withMessage("Please provide a vehicle description."),
 
         // image path is required
         body("inv_image")
             .trim()
-            .escape()
             .notEmpty().withMessage("Please provide an image file path."),
 
         // thumbnail path is required
         body("inv_thumbnail")
             .trim()
-            .escape()
             .notEmpty().withMessage("Please provide a thumbnail file path."),
 
         // price is required and must be in a currency format
         body("inv_price")
             .trim()
-            .escape()
             .notEmpty().withMessage("Please provide a price.")
             .bail()
             .isCurrency().withMessage("Price must be in currency format."),
@@ -96,7 +90,6 @@ validate.inventoryRules = () => {
         // year is required and must be a 4-digit number
         body("inv_year")
             .trim()
-            .escape()
             .notEmpty().withMessage("Please provide a year.")
             .bail()
             .isNumeric().withMessage("Year must contain only numeric characters.")
@@ -107,7 +100,6 @@ validate.inventoryRules = () => {
         // miles is required and must contain only numeric characters
         body("inv_miles")
             .trim()
-            .escape()
             .notEmpty().withMessage("Please provide miles.")
             .bail()
             .isNumeric({ no_symbols: true}).withMessage("Miles must contain only numeric characters."),
@@ -115,7 +107,6 @@ validate.inventoryRules = () => {
         // color is required
         body("inv_color")
             .trim()
-            .escape()
             .notEmpty().withMessage("Please provide a vehicle color."),
     ]
 }
@@ -124,15 +115,17 @@ validate.inventoryRules = () => {
  * Check data and return errors or continue to add inventory
  * ********************************************* */
 validate.checkInventoryData = async (req, res, next) => {
-    const { inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
+    const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav()
+        let classificationList = await utilities.buildClassificationList()
         res.render("inventory/add-inventory", {
             errors,
             title: "Add Vehicle",
             nav,
+            classification_id,
             inv_make,
             inv_model,
             inv_description,
@@ -141,7 +134,8 @@ validate.checkInventoryData = async (req, res, next) => {
             inv_price,
             inv_year,
             inv_miles,
-            inv_color
+            inv_color,
+            classificationList
         })
         return
     }
