@@ -78,4 +78,4 @@ async function addNewInventory(inv_make, inv_model, inv_description, inv_image, 
     }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleDetailsByInventoryId, checkExistingClassification, addNewClassification }
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleDetailsByInventoryId, checkExistingClassification, addNewClassification, addNewInventory }

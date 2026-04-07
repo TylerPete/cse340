@@ -120,4 +120,32 @@ validate.inventoryRules = () => {
     ]
 }
 
+/* ***********************************************
+ * Check data and return errors or continue to add inventory
+ * ********************************************* */
+validate.checkInventoryData = async (req, res, next) => {
+    const { inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("inventory/add-inventory", {
+            errors,
+            title: "Add Vehicle",
+            nav,
+            inv_make,
+            inv_model,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_year,
+            inv_miles,
+            inv_color
+        })
+        return
+    }
+    next()
+}
+
 module.exports = validate
