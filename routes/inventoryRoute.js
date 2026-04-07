@@ -17,12 +17,22 @@ router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByI
 // Route to build add classification view
 router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
 
+// Route to build add inventory view
+router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory))
+
 // Route to process new classification addition
 router.post(
     '/add-classification',
     newInvValidate.classificationRules(),
     newInvValidate.checkClassificationData,
     utilities.handleErrors(invController.addNewClassification))
+
+// Route to process new inventory addition
+router.post(
+    '/add-inventory',
+    newInvValidate.inventoryRules(),
+    newInvValidate.checkInventoryData,
+    utilities.handleErrors(invController.addNewInventory))
 
 // router.get("/error-test", invController.triggerError);
 

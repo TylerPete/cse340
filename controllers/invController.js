@@ -65,7 +65,6 @@ invCont.buildAddClassification = async function (req, res, next) {
 /* ********************************
  * Process New Classification Addition
  * ****************************** */
-
 invCont.addNewClassification = async function (req, res) {
     const { classification_name } = req.body
 
@@ -91,6 +90,67 @@ invCont.addNewClassification = async function (req, res) {
             title: "Add Classification",
             nav,
             errors: null,
+        })
+    }
+}
+
+/* ********************************
+ * Build add new inventory view
+ * ****************************** */
+invCont.buildAddInventory = async function (req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("./inventory/add-inventory", {
+        title: "Add Vehicle",
+        nav,
+        errors: null,
+    })
+}
+
+/* ********************************
+ * Process New Inventory Addition
+ * ****************************** */
+invCont.addNewInventory = async function (req, res) {
+    const { inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
+
+    const addResult = await invModel.addNewInventory(
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color
+    )
+
+    let nav = await utilities.getNav()
+
+    if (addResult) {
+        req.flash(
+            "notice",
+            `The ${inv_make} ${inv_model} vehicle was successfully added.`
+        )
+        res.status(201).render("./inventory/management", {
+            title: "Vehicle Management",
+            nav,
+            errors: null,
+        })
+    } else {
+        req.flash("notice", "Sorry, the vehicle addition failed.")
+        res.status(501).render("inventory/add-inventory", {
+            title: "Add Vehicle",
+            nav,
+            errors: null,
+            inv_make,
+            inv_model,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_year,
+            inv_miles,
+            inv_color
         })
     }
 }
