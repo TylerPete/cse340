@@ -4,7 +4,7 @@ const { body, validationResult } = require("express-validator")
 const validate = {}
 
 /* **********************************
- * Inventory Addition Data Validation Rules
+ * Classification Addition Data Validation Rules
  * ******************************** */
 validate.classificationRules = () => {
     return [
@@ -42,6 +42,82 @@ validate.checkClassificationData = async (req, res, next) => {
         return
     }
     next()
+}
+
+/* **********************************
+ * Inventory Addition Data Validation Rules
+ * ******************************** */
+validate.inventoryRules = () => {
+    return [
+        // make is required and must be 3 or more characters
+        body("inv_make")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide a vehicle make.")
+            .bail()
+            .isLength({ min: 3 })
+            .withMessage("Make must contain 3 or more characters."),
+
+        // model is required and must be 3 or more characters
+        body("inv_model")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide a vehicle model.")
+            .bail()
+            .isLength({ min: 3 })
+            .withMessage("Model must contain 3 or more characters."),
+
+        // description is required
+        body("inv_description")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide a vehicle description."),
+
+        // image path is required
+        body("inv_image")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide an image file path."),
+
+        // thumbnail path is required
+        body("inv_thumbnail")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide a thumbnail file path."),
+
+        // price is required and must be in a currency format
+        body("inv_price")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide a price.")
+            .bail()
+            .isCurrency().withMessage("Price must be in currency format."),
+        
+        // year is required and must be a 4-digit number
+        body("inv_year")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide a year.")
+            .bail()
+            .isNumeric().withMessage("Year must contain only numeric characters.")
+            .bail()
+            .isLength({ min: 4, max: 4 })
+            .withMessage("Year must be exactly 4 digits."),
+
+        // miles is required and must contain only numeric characters
+        body("inv_miles")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide miles.")
+            .bail()
+            .isNumeric({ no_symbols: true}).withMessage("Miles must contain only numeric characters."),
+
+        // color is required
+        body("inv_color")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide a vehicle color.")
+    ]
 }
 
 module.exports = validate
