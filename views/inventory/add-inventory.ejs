@@ -20,8 +20,16 @@
             <!-- SELECT element with classification options -->
 
             <label for="inv_make">Make<input type="text" name="inv_make" id="inv_make" pattern=".{3,}" placeholder="Min of 3 characters" required></label>
-            <!-- More inputs -->
-            
+            <label for="inv_model">Model<input type="text" name="inv_model" id="inv_model" pattern=".{3,}" placeholder="Min of 3 characters" required></label>
+            <label for="inv_description">Description<textarea name="inv_description" id="inv_description" required></textarea></label>
+            <label for="inv_image">Image Path<input type="text" name="inv_image" id="inv_image" value="/images/vehicles/no-image.png" required></label>
+            <label for="inv_thumbnail">Thumbnail Path<input type="text" name="inv_thumbnail" id="inv_thumbnail" value="/images/vehicles/no-image-tn.png" required></label>
+            <label for="inv_price">Price<input type="number" name="inv_price" id="inv_price" step="0.01" placeholder="decimal or integer" required></label>
+            <label for="inv_year">Year<input type="number" name="inv_year" id="inv_year" step="1" placeholder="4-digit year" min="1900" max="2099" required></label>
+            <label for="inv_miles">Miles<input type="number" name="inv_miles" id="inv_miles" step="1" placeholder="digits only" required></label>
+            <label for="inv_color">Color<input type="text" name="inv_color" id="inv_color" required></label>
+
+
             <button type="submit" id="login-button">ADD VEHICLE</button>
         </fieldset>
     </form>
