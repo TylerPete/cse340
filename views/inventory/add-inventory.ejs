@@ -17,7 +17,7 @@
     <form id="add-inventory-form" action="/inv/add-inventory" method="post">
         <p class="italic-required-statement">All fields are required.</p>
         <fieldset>
-            <label for=""><%= classificationList %></label>
+            <label for="classification_id">Classification<%- classificationList %></label>
 
             <label for="inv_make">Make<input type="text" name="inv_make" id="inv_make" pattern=".{3,}" placeholder="Min of 3 characters" value ="<%= locals.inv_make %>" required></label>
             <label for="inv_model">Model<input type="text" name="inv_model" id="inv_model" pattern=".{3,}" placeholder="Min of 3 characters" value ="<%= locals.inv_model %>" required></label>
