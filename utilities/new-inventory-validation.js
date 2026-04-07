@@ -116,7 +116,7 @@ validate.inventoryRules = () => {
         body("inv_color")
             .trim()
             .escape()
-            .notEmpty().withMessage("Please provide a vehicle color.")
+            .notEmpty().withMessage("Please provide a vehicle color."),
     ]
 }
 
