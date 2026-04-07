@@ -99,10 +99,12 @@ invCont.addNewClassification = async function (req, res) {
  * ****************************** */
 invCont.buildAddInventory = async function (req, res, next) {
     let nav = await utilities.getNav()
+    let classificationList = await utilities.buildClassificationList()
     res.render("./inventory/add-inventory", {
         title: "Add Vehicle",
         nav,
         errors: null,
+        classificationList
     })
 }
 
@@ -110,9 +112,10 @@ invCont.buildAddInventory = async function (req, res, next) {
  * Process New Inventory Addition
  * ****************************** */
 invCont.addNewInventory = async function (req, res) {
-    const { inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
+    const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
 
     const addResult = await invModel.addNewInventory(
+        classification_id,
         inv_make,
         inv_model,
         inv_description,
@@ -125,6 +128,7 @@ invCont.addNewInventory = async function (req, res) {
     )
 
     let nav = await utilities.getNav()
+    let classificationList = await utilities.buildClassificationList()
 
     if (addResult) {
         req.flash(
@@ -142,6 +146,7 @@ invCont.addNewInventory = async function (req, res) {
             title: "Add Vehicle",
             nav,
             errors: null,
+            classification_id,
             inv_make,
             inv_model,
             inv_description,
@@ -150,7 +155,8 @@ invCont.addNewInventory = async function (req, res) {
             inv_price,
             inv_year,
             inv_miles,
-            inv_color
+            inv_color,
+            classificationList
         })
     }
 }
