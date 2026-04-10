@@ -5,7 +5,7 @@ const utilities = require("../utilities/")
 const reglogValidate = require("../utilities/account-validation")
 
 // Route to build account management view
-router.get("/", utilities.handleErrors(actController.buildAccountManagement))
+router.get("/", utilities.checkLogin, utilities.handleErrors(actController.buildAccountManagement))
 
 // Route to build login view
 router.get("/login", utilities.handleErrors(actController.buildLogin))
