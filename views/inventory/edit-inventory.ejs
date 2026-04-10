@@ -30,10 +30,12 @@
             <label for="inv_color">Color<input type="text" name="inv_color" id="inv_color" value ="<%= locals.inv_color %>" required></label>
 
 
-            <button type="submit" id="login-button">UPDATE VEHICLE</button>
+            <button type="submit" id="login-button" disabled>UPDATE VEHICLE</button>
             <input type="hidden" name="inv_id"
                 <% if (locals.inv_id) { %> value="<%= locals.inv_id %>"
                 <% } %>>
         </fieldset>
     </form>
 </div>
+
+<script src="../../js/inv-update.js"></script>
