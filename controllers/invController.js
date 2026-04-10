@@ -185,6 +185,22 @@ invCont.getInventoryJSON = async (req, res, next) => {
     }
 }
 
+/* ********************************
+ * Build edit inventory view
+ * ****************************** */
+invCont.buildEditInventory = async function (req, res, next) {
+    const inventory_id = parseInt(req.params.inv_id)
+    let nav = await utilities.getNav()
+    const { inv_make, inv_model } = getVehicleDetailsByInventoryId(inventory_id)
+    let classificationList = await utilities.buildClassificationList()
+    res.render("./inventory/edit-inventory", {
+        title: "Add Vehicle",
+        nav,
+        errors: null,
+        classificationList
+    })
+}
+
 invCont.triggerError = function(req, res, next) {
     next(new Error("Test 500 error"))
 }
