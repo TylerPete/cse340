@@ -39,6 +39,13 @@ router.post(
     newInvValidate.checkInventoryData,
     utilities.handleErrors(invController.addNewInventory))
 
+// Route to process inventory edit
+router.post(
+    '/edit-inventory/',
+    newInvValidate.inventoryRules(),
+    newInvValidate.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory))
+
 // router.get("/error-test", invController.triggerError);
 
 module.exports = router;

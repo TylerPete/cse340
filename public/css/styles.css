@@ -238,15 +238,19 @@ input, textarea, select {
   justify-content: center;
 }
 
-#login-form, #registration-form, #add-classification-form, #add-inventory-form {
+#login-form, #registration-form, #add-classification-form, #add-inventory-form, #edit-inventory-form {
   background-color: var(--dark-blue-form);
   color: white;
   padding: 1rem;
   min-width: 250px;
 }
 
-#login-form>fieldset, #registration-form>fieldset, #add-classification-form>fieldset, #add-inventory-form>fieldset {
+#login-form>fieldset, #registration-form>fieldset, #add-classification-form>fieldset, #add-inventory-form>fieldset, #edit-inventory-form>fieldset {
   border: 1px solid white;
+}
+
+#edit-inventory-form textarea {
+  field-sizing: content;
 }
 
 #login-form>p {
@@ -313,7 +317,7 @@ input, textarea, select {
     grid-template-columns: 5fr 6fr;
 }
 
-  #login-form, #registration-form, #add-classification-form, #add-inventory-form {
+  #login-form, #registration-form, #add-classification-form, #add-inventory-form, #edit-inventory-form {
     width: 50%;
     max-width: 350px;
   }
