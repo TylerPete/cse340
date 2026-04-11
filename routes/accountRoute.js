@@ -13,6 +13,9 @@ router.get("/login", utilities.handleErrors(actController.buildLogin))
 // Route to build registration view
 router.get("/registration", utilities.handleErrors(actController.buildRegistration))
 
+// Route to log out user
+router.get("/logout", utilities.handleErrors(actController.logOut))
+
 // Route to process registration form(?)
 router.post(
     '/registration',

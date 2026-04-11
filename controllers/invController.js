@@ -54,11 +54,17 @@ invCont.buildByInventoryId = async function (req, res, next) {
 invCont.buildVehicleManagement = async function (req, res, next) {
     let nav = await utilities.getNav()
     const classificationList = await utilities.buildClassificationList()
-    res.render("./inventory/management", {
-        title: "Vehicle Management",
-        nav,
-        classificationList
-    })
+
+    if (res.locals.managementAccess) {
+        res.render("./inventory/management", {
+            title: "Vehicle Management",
+            nav,
+            classificationList
+        })
+    } else {
+        req.flash("notice", "Please log in as Employee/Admin to access this view.")
+        res.redirect("/account/login")
+    }
 }
 
 /* ******************
@@ -66,11 +72,17 @@ invCont.buildVehicleManagement = async function (req, res, next) {
  * ****************** */
 invCont.buildAddClassification = async function (req, res, next) {
     let nav = await utilities.getNav()
-    res.render("./inventory/add-classification", {
-        title: "Add Classification",
-        nav,
-        errors: null
-    })
+
+    if (res.locals.managementAccess) {
+        res.render("./inventory/add-classification", {
+            title: "Add Classification",
+            nav,
+            errors: null
+        })
+    } else {
+        req.flash("notice", "Please log in as Employee/Admin to access this view.")
+        res.redirect("/account/login")
+    }
 }
 
 /* ********************************
@@ -113,12 +125,18 @@ invCont.addNewClassification = async function (req, res) {
 invCont.buildAddInventory = async function (req, res, next) {
     let nav = await utilities.getNav()
     let classificationList = await utilities.buildClassificationList()
-    res.render("./inventory/add-inventory", {
-        title: "Add Vehicle",
-        nav,
-        errors: null,
-        classificationList
-    })
+
+    if (res.locals.managementAccess) {
+        res.render("./inventory/add-inventory", {
+            title: "Add Vehicle",
+            nav,
+            errors: null,
+            classificationList
+        })
+    } else {
+        req.flash("notice", "Please log in as Employee/Admin to access this view.")
+        res.redirect("/account/login")
+    }
 }
 
 /* ********************************
@@ -199,23 +217,29 @@ invCont.buildEditInventory = async function (req, res, next) {
     const classificationList = await utilities.buildClassificationList(item.classification_id)
     
     const name = `${item.inv_make} ${item.inv_model}`
-    res.render("./inventory/edit-inventory", {
-        title: "Edit " + name,
-        nav,
-        errors: null,
-        classificationList: classificationList,
-        inv_id: item.inv_id,
-        inv_make: item.inv_make,
-        inv_model: item.inv_model,
-        inv_year: item.inv_year,
-        inv_description: item.inv_description,
-        inv_image: item.inv_image,
-        inv_thumbnail: item.inv_thumbnail,
-        inv_price: item.inv_price,
-        inv_miles: item.inv_miles,
-        inv_color: item.inv_color,
-        classification_id: item.classification_id        
-    })
+
+    if (res.locals.managementAccess) {
+        res.render("./inventory/edit-inventory", {
+            title: "Edit " + name,
+            nav,
+            errors: null,
+            classificationList: classificationList,
+            inv_id: item.inv_id,
+            inv_make: item.inv_make,
+            inv_model: item.inv_model,
+            inv_year: item.inv_year,
+            inv_description: item.inv_description,
+            inv_image: item.inv_image,
+            inv_thumbnail: item.inv_thumbnail,
+            inv_price: item.inv_price,
+            inv_miles: item.inv_miles,
+            inv_color: item.inv_color,
+            classification_id: item.classification_id        
+        })
+    } else {
+        req.flash("notice", "Please log in as Employee/Admin to access this view.")
+        res.redirect("/account/login")
+    }
 }
 
 /* ********************************
@@ -278,16 +302,22 @@ invCont.buildDeleteInventory = async function (req, res, next) {
     const item = itemData[0]
 
     const name = `${item.inv_make} ${item.inv_model}`
-    res.render("./inventory/delete-confirm", {
-        title: "Delete " + name,
-        nav,
-        errors: null,
-        inv_id: item.inv_id,
-        inv_make: item.inv_make,
-        inv_model: item.inv_model,
-        inv_year: item.inv_year,
-        inv_price: item.inv_price,       
-    })
+
+    if (res.locals.managementAccess) {
+        res.render("./inventory/delete-confirm", {
+            title: "Delete " + name,
+            nav,
+            errors: null,
+            inv_id: item.inv_id,
+            inv_make: item.inv_make,
+            inv_model: item.inv_model,
+            inv_year: item.inv_year,
+            inv_price: item.inv_price,       
+        })
+    } else {
+        req.flash("notice", "Please log in as Employee/Admin to access this view.")
+        res.redirect("/account/login")
+    }
 }
 
 /* ********************************
