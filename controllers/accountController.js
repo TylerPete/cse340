@@ -138,11 +138,36 @@ async function buildAccountManagement(req, res, next) {
     })
 }
 
+/* **************************
+ * Deliver account management view
+ * ************************ */
 async function logOut(req, res, next) {
     res.clearCookie("jwt")
     req.flash("notice", "You have been logged out.")
 
     return res.redirect("/")
+}
+
+/* **************************
+ * Deliver update account info view
+ * ************************ */
+async function buildUpdateAccount(req, res, next) {
+    let nav = await utilities.getNav()
+    const account_id = req.params.accountId
+
+    const data = await actModel.getAccountDetailsById(account_id)
+    const grid = await utilities.buildVehicleDetailsGrid(data)
+
+    // const year = data[0].inv_year
+    // const make = data[0].inv_make
+    // const model = data[0].inv_model
+
+    res.render("account/management.ejs", {
+        title: "Account Management",
+        nav,
+        errors: null,
+        account_id
+    })
 }
 
 module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, logOut }

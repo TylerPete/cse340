@@ -13,4 +13,10 @@
     </ul>
 <% } %>
 
-<p>You're logged in</p>
+<h2>Welcome, <%- accountData.account_firstname %></h2>
+
+<p><a title="Click to update account information" href="/account/update/<%= accountData.account_id %>">Update account information</a></p>
+
+<% if (managementAccess) { %>
+    <h3><a title="Click to manage inventory" href="/inv/">Inventory Management</a></h3>
+<% } %>

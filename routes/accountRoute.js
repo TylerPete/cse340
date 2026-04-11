@@ -16,6 +16,9 @@ router.get("/registration", utilities.handleErrors(actController.buildRegistrati
 // Route to log out user
 router.get("/logout", utilities.handleErrors(actController.logOut))
 
+// Route to build update account info view
+router.get("/update/:accountId", utilities.handleErrors(actController.buildUpdateAccount))
+
 // Route to process registration form(?)
 router.post(
     '/registration',
