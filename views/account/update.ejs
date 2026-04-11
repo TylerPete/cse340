@@ -1,0 +1,49 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<%- messages() %>
+<% } else {
+    res.redirect('/')
+} %>
+
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<h3>Update Account</h3>
+<div class="form-div">
+    <form id="update-account-form" action="/account/update" method="post">
+        <p class="italic-required-statement">All fields are required.</p>
+        <fieldset>
+            <label for="account_firstname">First name<input type="text" name="account_firstname" id="account_firstname" value ="<%= locals.account_firstname %>" required></label>
+            <label for="account_lastname">Last name<input type="text" name="account_lastname" id="account_lastname" value ="<%= locals.account_lastname %>" required></label>
+            <label for="account_email">Email<input type="email" name="account_email" id="account_email" value="<%= locals.account_email %>" required></input></label>
+
+            <button type="submit" id="login-button">UPDATE</button>
+            <input type="hidden" name="account_id"
+                <% if (locals.account_id) { %> value="<%= locals.account_id %>"
+                <% } %>>
+        </fieldset>
+    </form>
+</div>
+
+<h3>Change Password</h3>
+<div class="form-div">
+    <form action="/account/change-password" method="post" id="change-password-form">
+        <fieldset>
+            <p class="italic-required-statement">*Note: your current password will be changed.</p>
+            <label for="account_password">Password<input type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required name="account_password" id="account_password"></label>
+            
+            <p class="italic-required-statement">Passwords must have a minimum of 12 characters and include 1 capital letter, 1 number, and 1 special character.</p>
+            <button type="submit" id="login-button">CHANGE PASSWORD</button>
+            <input type="hidden" name="account_id"
+                <% if (locals.account_id) { %> value="<%= locals.account_id %>"
+                <% } %>>
+        </fieldset>
+    </form>
+</div>
+
+<!-- <script src="../../js/inv-update.js"></script> -->

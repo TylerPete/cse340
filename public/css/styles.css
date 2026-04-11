@@ -238,14 +238,14 @@ input, textarea, select {
   justify-content: center;
 }
 
-#login-form, #registration-form, #add-classification-form, #add-inventory-form, #edit-inventory-form {
+#login-form, #registration-form, #add-classification-form, #add-inventory-form, #edit-inventory-form, #update-account-form, #change-password-form {
   background-color: var(--dark-blue-form);
   color: white;
   padding: 1rem;
-  min-width: 250px;
+  width: 250px;
 }
 
-#login-form>fieldset, #registration-form>fieldset, #add-classification-form>fieldset, #add-inventory-form>fieldset, #edit-inventory-form>fieldset {
+#login-form>fieldset, #registration-form>fieldset, #add-classification-form>fieldset, #add-inventory-form>fieldset, #edit-inventory-form>fieldset, #update-account-form>fieldset, #change-password-form>fieldset {
   border: 1px solid white;
 }
 
@@ -270,6 +270,7 @@ input, textarea, select {
 .italic-required-statement {
   font-style: italic;
 }
+
 
 @media screen and (min-width: 600px) {
   html {
@@ -317,7 +318,7 @@ input, textarea, select {
     grid-template-columns: 5fr 6fr;
 }
 
-  #login-form, #registration-form, #add-classification-form, #add-inventory-form, #edit-inventory-form {
+  #login-form, #registration-form, #add-classification-form, #add-inventory-form, #edit-inventory-form, #update-account-form, #change-password-form {
     width: 50%;
     max-width: 350px;
   }

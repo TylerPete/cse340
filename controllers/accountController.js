@@ -155,19 +155,17 @@ async function buildUpdateAccount(req, res, next) {
     let nav = await utilities.getNav()
     const account_id = req.params.accountId
 
-    const data = await actModel.getAccountDetailsById(account_id)
-    const grid = await utilities.buildVehicleDetailsGrid(data)
+    const itemData = await actModel.getAccountDetailsById(account_id)
 
-    // const year = data[0].inv_year
-    // const make = data[0].inv_make
-    // const model = data[0].inv_model
-
-    res.render("account/management.ejs", {
-        title: "Account Management",
+    res.render("account/update.ejs", {
+        title: "Edit Account",
         nav,
         errors: null,
-        account_id
+        account_id,
+        account_firstname: itemData.account_firstname,
+        account_lastname: itemData.account_lastname,
+        account_email: itemData.account_email
     })
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, logOut }
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, logOut, buildUpdateAccount }
