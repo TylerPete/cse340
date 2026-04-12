@@ -31,7 +31,6 @@ async function buildRegistration(req, res, next) {
 /* **********************
  * Process Registration
  * ******************** */
-
 async function registerAccount(req, res) {
     let nav = await utilities.getNav()
     const { account_firstname, account_lastname, account_email, account_password } = req.body
@@ -139,7 +138,7 @@ async function buildAccountManagement(req, res, next) {
 }
 
 /* **************************
- * Deliver account management view
+ * Process logout attempt
  * ************************ */
 async function logOut(req, res, next) {
     res.clearCookie("jwt")
@@ -168,4 +167,42 @@ async function buildUpdateAccount(req, res, next) {
     })
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, logOut, buildUpdateAccount }
+/* **********************
+ * Process account update
+ * ******************** */
+async function updateAccount(req, res) {
+    let nav = await utilities.getNav()
+    const { account_firstname, account_lastname, account_email, account_id } = req.body
+
+    const updateResult = await actModel.updateAccount(
+        account_id,
+        account_firstname,
+        account_lastname,
+        account_email
+    )
+
+    if (updateResult) {
+        req.flash(
+            "notice",
+            `You\'ve successfully updated your account info, ${account_firstname}.`
+        )
+        res.status(201).render("account/management", {
+            title: "Account Management",
+            nav,
+            errors: null
+        })
+    } else {
+        req.flash("notice", "Sorry, the account update failed.")
+        res.status(501).render("account/update", {
+            title: "Edit Account",
+            nav,
+            errors: null,
+            account_firstname,
+            account_lastname,
+            account_email
+        })
+    }
+}
+
+
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, logOut, buildUpdateAccount, updateAccount }

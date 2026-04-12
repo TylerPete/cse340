@@ -26,11 +26,24 @@ router.post(
     reglogValidate.checkRegData,
     utilities.handleErrors(actController.registerAccount))
 
-// Process the login attempt
+// Route to process the login attempt
 router.post(
     "/login",
     reglogValidate.loginRules(),
     reglogValidate.checkLoginData,
     utilities.handleErrors(actController.accountLogin))
+
+// Route to process the account update attempt
+router.post(
+    "/update",
+    reglogValidate.updateRules(),
+    reglogValidate.checkUpdateData,
+    utilities.handleErrors(actController.updateAccount))
+
+// Route to process the password change attempt
+router.post(
+    "/change-password",
+    //validation, etc. functions here
+    utilities.handleErrors(actController.changePassword))
 
 module.exports = router

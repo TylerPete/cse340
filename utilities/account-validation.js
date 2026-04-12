@@ -131,5 +131,68 @@ validate.checkLoginData = async (req, res, next) => {
     next()
 }
 
+/* **********************************
+ * Registration Data Validation Rules
+ * ******************************** */
+validate.updateRules = () => {
+    return [
+        // firstname is required and must be string
+        body("account_firstname")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide a first name.")
+            .bail()
+            .isLength({ min: 1 })
+            .withMessage("Please provide a valid first name."), // on error this message is sent.
+
+        // lastname is required and must be string
+        body("account_lastname")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide a last name.")
+            .bail()
+            .isLength( {min: 2 })
+            .withMessage("Please provide a valid last name."), //on error this message is sent.
+
+        // valid email is required and cannot already exist in the DB
+        body("account_email")
+            .trim()
+            .escape()
+            .notEmpty().withMessage("Please provide an email address.")
+            .bail()
+            .isEmail()
+            .normalizeEmail() // refer to validator.js docs
+            .withMessage("A valid email is required.")
+            .custom(async (account_email) => {
+                const emailExists = await actModel.checkExistingEmail(account_email)
+                if (emailExists) {
+                    throw new Error("Email exists. Please provide a different email.")
+                }
+            }),
+    ]
+}
+
+/* ***********************************************
+ * Check data and return errors or continue to update
+ * ********************************************* */
+validate.checkUpdateData = async (req, res, next) => {
+    const { account_firstname, account_lastname, account_email } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("account/update", {
+            errors,
+            title: "Edit Account",
+            nav,
+            account_firstname,
+            account_lastname,
+            account_email,
+        })
+        return
+    }
+    next()
+}
+
 
 module.exports = validate
