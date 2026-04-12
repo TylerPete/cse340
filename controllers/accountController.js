@@ -182,15 +182,18 @@ async function updateAccount(req, res) {
     )
 
     if (updateResult) {
+        const updatedAccount = updateResult.rows[0]
+
+        const newToken = jwt.sign(updatedAccount, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: 3600 * 1000
+        })
+        res.cookie("jwt", newToken, {httpOnly: true, maxAge: 3600 * 100})
+        
         req.flash(
             "notice",
             `You\'ve successfully updated your account info, ${account_firstname}.`
         )
-        res.status(201).render("account/management", {
-            title: "Account Management",
-            nav,
-            errors: null
-        })
+        res.redirect("/account")
     } else {
         req.flash("notice", "Sorry, the account update failed.")
         res.status(501).render("account/update", {
