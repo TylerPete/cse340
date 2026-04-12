@@ -260,3 +260,16 @@ SET inv_image = SUBSTRING(
         inv_thumbnail
         FROM 8
     );
+-- W06 Assignment: Final Enhancement
+--  Additional DDL command to add new table
+--  'Favorite' table is a relational table,
+--  linking many accounts to many vehicles
+--                            in inventory
+CREATE TABLE IF NOT EXISTS public.favorite (
+    account_id INTEGER NOT NULL,
+    inv_id INTEGER NOT NULL,
+    added_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_favorite_account FOREIGN KEY (account_id) REFERENCES public.account(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT fk_favorite_inventory FOREIGN KEY (inv_id) REFERENCES public.inventory(inv_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT favorite_pkey PRIMARY KEY (account_id, inv_id)
+);
