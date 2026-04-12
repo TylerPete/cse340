@@ -21,7 +21,7 @@
 
             <label for="inv_make">Make<input type="text" name="inv_make" id="inv_make" pattern=".{3,}" placeholder="Min of 3 characters" value ="<%= locals.inv_make %>" required></label>
             <label for="inv_model">Model<input type="text" name="inv_model" id="inv_model" pattern=".{3,}" placeholder="Min of 3 characters" value ="<%= locals.inv_model %>" required></label>
-            <label for="inv_description">Description<textarea name="inv_description" id="inv_description" required><%= locals.inv_description %></textarea></label>
+            <label for="inv_description">Description<textarea name="inv_description" id="inv_description" rows="5" required><%= locals.inv_description %></textarea></label>
             <label for="inv_image">Image Path<input type="text" name="inv_image" id="inv_image" value ="<%= locals.inv_image || '/images/vehicles/no-image.png' %>" required></label>
             <label for="inv_thumbnail">Thumbnail Path<input type="text" name="inv_thumbnail" id="inv_thumbnail" value ="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>" required></label>
             <label for="inv_price">Price<input type="number" name="inv_price" id="inv_price" step="0.01" placeholder="decimal or integer" value ="<%= locals.inv_price %>" required></label>

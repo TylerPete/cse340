@@ -249,9 +249,9 @@ input, textarea, select {
   border: 1px solid white;
 }
 
-#edit-inventory-form textarea {
+/* #edit-inventory-form textarea {
   field-sizing: content;
-}
+} */
 
 #login-form>p {
   text-align: center;
@@ -261,7 +261,7 @@ input, textarea, select {
   color: white;
 }
 
-#login-button {
+.login-button {
   width: 90%;
   height: 40px;
   margin: 10px 0;
