@@ -80,16 +80,67 @@ async function updateAccount(account_id, account_firstname, account_lastname, ac
  * ******************** */
 async function changePassword(account_password, account_id) {
     try {
-        console.log("Updating password for account_id:", account_id)
-        console.log("New password (hashed):", account_password)
-
         const sql = "UPDATE account SET account_password = $1 WHERE account_id = $2 RETURNING *"
         return await pool.query(sql, [account_password, account_id])
-
-        console.log("Update result:", result.rowCount)
     } catch (error) {
         return error.message
     }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountDetailsById, updateAccount, changePassword }
+/* ***************************************
+ * Add favorite to database favorite table
+ * ************************************* */
+async function addFavorite(account_id, inv_id) {
+    try {
+        const sql = "INSERT INTO favorite (account_id, inv_id) VALUES ($1, $2) ON CONFLICT (account_id, inv_id) DO NOTHING RETURNING *"
+        const result = await pool.query(sql, [account_id, inv_id])
+    
+        return result.rowCount > 0;
+    } catch (error) {
+        return error.message
+    }
+}
+
+/* *************************************************
+ * Remove favorite from from database favorite table
+ * *********************************************** */
+async function deleteFavorite(account_id, inv_id) {
+    try {
+        const sql = "DELETE FROM favorite WHERE account_id = $1 AND inv_id = $2 RETURNING *"
+        const result = await pool.query(sql, [account_id, inv_id])
+        
+        return result.rowCount > 0;
+    } catch (error) {
+        return error.message
+    }
+}
+
+/* ***************************************************
+ * Return favorite inventory item id's from account_id
+ * ************************************************* */
+async function getFavoritesByAccount(account_id) {
+    try {
+        const sql = "SELECT * FROM favorite WHERE account_id = $1"
+        return await pool.query(sql, [account_id])
+    } catch (error) {
+        return error.message
+    }
+}
+
+/* ******************************
+ * Check for existing favorite
+ * **************************** */
+async function checkFavorite(account_id, inv_id) {
+    try {
+        let favorite;
+
+        const sql = "SELECT * FROM favorite WHERE account_id = $1 AND inv_id = $2"
+        favorite = await pool.query(sql, [account_id, inv_id])
+
+        return favorite.rowCount > 0;
+    } catch (error) {
+        return error.message
+    }
+}
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountDetailsById, updateAccount, changePassword, addFavorite, deleteFavorite, getFavoritesByAccount, checkFavorite }

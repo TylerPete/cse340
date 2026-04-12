@@ -7,3 +7,9 @@
 } %>
 
 <%- grid %>
+
+
+<form method="post" action="/account/favorite/add">
+  <input type="hidden" name="inv_id" value="<%= inv_id %>">
+  <button type="submit">Add to Favorites</button>
+</form>

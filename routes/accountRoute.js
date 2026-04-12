@@ -47,4 +47,13 @@ router.post(
     reglogValidate.checkChangePasswordData,
     utilities.handleErrors(actController.changePassword))
 
+// Route to process favorite addition
+router.post("/favorite/add", utilities.handleErrors(actController.addFavorite))
+
+// Route to process favorite deletion
+router.post("/favorite/delete", utilities.handleErrors(actController.deleteFavorite))
+
+// Route to build favorites view
+router.get("/favorites", utilities.handleErrors(actController.buildFavoritesView))
+
 module.exports = router

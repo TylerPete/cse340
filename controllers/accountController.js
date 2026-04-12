@@ -258,4 +258,58 @@ async function changePassword(req, res) {
     }
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, logOut, buildUpdateAccount, updateAccount, changePassword }
+/* ***************
+ * Add favorite
+ * ************* */
+async function addFavorite(req, res) {
+    const { inv_id } = req.body
+    const account_id = res.locals.accountData.account_id
+
+    const addFavoriteResult = await actModel.addFavorite(account_id, inv_id)
+
+    if (addFavoriteResult) {
+        req.flash("notice", "Vehicle added to favorites.")
+    } else {
+        req.flash("notice", "Vehicle is already in your favorites.")
+    }
+
+    res.redirect(`/inv/detail/${inv_id}`)
+}
+
+/* **************
+ * Delete favorite
+ * ************ */
+async function deleteFavorite(req, res) {
+    const { inv_id } = req.body
+    const account_id = res.locals.accountData.account_id
+
+    const deleteFavoriteResult = await actModel.deleteFavorite(account_id, inv_id)
+    
+    if (deleteFavoriteResult) {
+        req.flash("notice", "Vehicle removed from favorites.")
+    } else {
+        req.flash("notice", "Favorite not found.")
+    }
+
+    res.redirect(`/inv/detail/${inv_id}`)
+}
+
+/* **************************
+ * Deliver favorites view
+ * ************************ */
+async function buildFavoritesView(req, res, next) {
+    let nav = await utilities.getNav()
+    const account_id = res.locals.accountData.account_id
+
+    const favoritesData = await actModel.getFavoritesByAccount(account_id)
+
+    res.render("account/favorites", {
+        title: "Your Favorites",
+        nav,
+        errors: null,
+        favorites: favoritesData
+    })
+}
+
+
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, logOut, buildUpdateAccount, updateAccount, changePassword, addFavorite, deleteFavorite, buildFavoritesView }

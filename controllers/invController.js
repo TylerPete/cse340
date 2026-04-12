@@ -45,6 +45,7 @@ invCont.buildByInventoryId = async function (req, res, next) {
         title: year + ' ' + make + ' ' + model,
         nav,
         grid,
+        inv_id: inventory_id
     })
 }
 
