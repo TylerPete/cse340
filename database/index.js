@@ -20,11 +20,23 @@ if (process.env.NODE_ENV == "development") {
     module.exports = {
         async query(text, params) {
             try {
-                const res = await pool.query(text, params)
+                console.log("TEXT TYPE:", typeof text)
+                console.log("TEXT VALUE:", text)
+                console.log("PARAMS TYPE:", typeof params)
+                console.log("PARAMS VALUE:", params)                
+
+                let res
+                
+                if (Array.isArray(params)) {
+                    res = await pool.query(text, params)
+                } else {
+                    res = await pool.query(text)
+                }
+
                 console.log("executed query", { text })
                 return res
             } catch (error) {
-                console.error("error in query", { text })
+                console.error("error in query", { text, params })
                 throw error
             }
         },
