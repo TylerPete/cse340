@@ -20,11 +20,6 @@ if (process.env.NODE_ENV == "development") {
     module.exports = {
         async query(text, params) {
             try {
-                console.log("TEXT TYPE:", typeof text)
-                console.log("TEXT VALUE:", text)
-                console.log("PARAMS TYPE:", typeof params)
-                console.log("PARAMS VALUE:", params)                
-
                 let res
                 
                 if (Array.isArray(params)) {

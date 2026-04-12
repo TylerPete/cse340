@@ -62,7 +62,7 @@ async function getAccountDetailsById (account_id) {
     }
 }
 
-//updateAccount
+
 /* **********************
  * Update account info
  * ******************** */
@@ -75,4 +75,21 @@ async function updateAccount(account_id, account_firstname, account_lastname, ac
     }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountDetailsById, updateAccount }
+/* **********************
+ * Change password
+ * ******************** */
+async function changePassword(account_password, account_id) {
+    try {
+        console.log("Updating password for account_id:", account_id)
+        console.log("New password (hashed):", account_password)
+
+        const sql = "UPDATE account SET account_password = $1 WHERE account_id = $2 RETURNING *"
+        return await pool.query(sql, [account_password, account_id])
+
+        console.log("Update result:", result.rowCount)
+    } catch (error) {
+        return error.message
+    }
+}
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountDetailsById, updateAccount, changePassword }

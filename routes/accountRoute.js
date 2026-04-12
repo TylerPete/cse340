@@ -43,7 +43,8 @@ router.post(
 // Route to process the password change attempt
 router.post(
     "/change-password",
-    //validation, etc. functions here
+    reglogValidate.changePasswordRules(),
+    reglogValidate.checkChangePasswordData,
     utilities.handleErrors(actController.changePassword))
 
 module.exports = router

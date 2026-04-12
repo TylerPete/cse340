@@ -204,5 +204,55 @@ async function updateAccount(req, res) {
     }
 }
 
+/* **********************
+ * Process password change
+ * ******************** */
+async function changePassword(req, res) {
+    let nav = await utilities.getNav()
+    const { account_firstname_hidden, account_lastname_hidden, account_email_hidden, account_password, account_id } = req.body
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, logOut, buildUpdateAccount, updateAccount }
+    // Hash the password before storing
+    let hashedPassword
+    try {
+        // regular password and cost (salt is generated automatically)
+        hashedPassword = await bcrypt.hashSync(account_password, 10)
+    } catch (error) {
+        req.flash("notice", 'Sorry, there was an error processing the password change.')
+        res.status(500).render("account/update", {
+            errors: null,
+            title: "Edit Account",
+            nav,
+            account_firstname: account_firstname_hidden,
+            account_lastname: account_lastname_hidden,
+            account_email: account_email_hidden,
+            account_id
+        })
+    }
+
+    const changePasswordResult = await actModel.changePassword(hashedPassword, account_id)
+
+    if (changePasswordResult) {
+        req.flash(
+            "notice",
+            `You\'ve successfully changed your password, ${account_firstname_hidden}.`
+        )
+        res.status(201).render("account/management", {
+            title: "Account Management",
+            nav,
+            errors: null
+        })
+    } else {
+        req.flash("notice", "Sorry, the password change failed.")
+        res.status(501).render("account/update", {
+            errors: null,
+            title: "Edit Account",
+            nav,
+            account_firstname: account_firstname_hidden,
+            account_lastname: account_lastname_hidden,
+            account_email: account_email_hidden,
+            account_id
+        })
+    }
+}
+
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, logOut, buildUpdateAccount, updateAccount, changePassword }

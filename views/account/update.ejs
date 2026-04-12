@@ -42,6 +42,13 @@
             <input type="hidden" name="account_id"
                 <% if (locals.account_id) { %> value="<%= locals.account_id %>"
                 <% } %>>
+            
+            <!-- OTHER hidden inputs for account data to be passed into the POST request,
+                  and made accessible for the sake of the OTHER form's 
+                  stickiness in the event of password change failure-->
+            <input type="hidden" name="account_firstname_hidden" value ="<%= locals.account_firstname %>">
+            <input type="hidden" name="account_lastname_hidden" value ="<%= locals.account_lastname %>">
+            <input type="hidden" name="account_email_hidden" value="<%= locals.account_email %>"></input>
         </fieldset>
     </form>
 </div>
