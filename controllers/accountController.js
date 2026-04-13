@@ -298,18 +298,27 @@ async function deleteFavorite(req, res) {
  * Deliver favorites view
  * ************************ */
 async function buildFavoritesView(req, res, next) {
+    console.log("buildFavoritesView hit")
+
     let nav = await utilities.getNav()
-    const account_id = res.locals.accountData.account_id
 
-    const favoritesData = await actModel.getFavoritesByAccount(account_id)
-    console.log("favoritesData: ", favoritesData)
+    let favoritesData;
 
-    res.render("account/favorites", {
-        title: "Your Favorites",
-        nav,
-        errors: null,
-        favorites: favoritesData
-    })
+    if (res.locals.loggedin) {
+        const account_id = res.locals.accountData.account_id
+        favoritesData = await actModel.getFavoritesByAccount(account_id)
+        res.render("account/favorites", {
+            title: "Your Favorites",
+            nav,
+            errors: null,
+            favorites: favoritesData
+        })
+    } else {
+        req.flash("notice", "You must login to access that view.")
+        res.redirect("/account/login")
+    }
+
+
 }
 
 

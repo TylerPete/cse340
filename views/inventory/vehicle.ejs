@@ -8,13 +8,16 @@
 
 <%- grid %>
 
-
-<form method="post" action="/account/favorite/add">
-  <input type="hidden" name="inv_id" value="<%= inv_id %>">
-  <button type="submit">Add to Favorites</button>
-</form>
-
-<form method="post" action="/account/favorite/delete">
-  <input type="hidden" name="inv_id" value="<%= inv_id %>">
-  <button type="submit">Remove Favorite</button>
-</form>
+<% if (loggedin) { %>
+  <% if (!isFavorite) { %>
+    <form method="post" action="/account/favorite/add">
+      <input type="hidden" name="inv_id" value="<%= inv_id %>">
+      <button type="submit">Add to Favorites</button>
+    </form>
+  <% } else { %>
+    <form method="post" action="/account/favorite/delete">
+      <input type="hidden" name="inv_id" value="<%= inv_id %>">
+      <button type="submit">Remove Favorite</button>
+    </form>
+  <% } %>
+<% } %>

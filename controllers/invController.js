@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
+const actModel = require("../models/account-model")
 
 const invCont = {}
 
@@ -41,11 +42,19 @@ invCont.buildByInventoryId = async function (req, res, next) {
     const make = data[0].inv_make
     const model = data[0].inv_model
 
+    let isFavorite = false
+
+    if (res.locals.loggedin) {
+        const account_id = res.locals.accountData.account_id
+        isFavorite = await actModel.checkFavorite(account_id, inventory_id)    
+    }
+
     res.render("./inventory/vehicle", {
         title: year + ' ' + make + ' ' + model,
         nav,
         grid,
-        inv_id: inventory_id
+        inv_id: inventory_id,
+        isFavorite
     })
 }
 
