@@ -1,0 +1,11 @@
+<h1><%= title %></h1>
+
+<% if (favorites.length > 0) { %>
+    <ul>
+        <% favorites.forEach(vehicle => { %>
+            <li><%= vehicle.inv_make %> <%= vehicle.inv_model %></li>
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p>No favorites found.</p>
+<% } %>

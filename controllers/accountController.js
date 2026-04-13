@@ -302,6 +302,7 @@ async function buildFavoritesView(req, res, next) {
     const account_id = res.locals.accountData.account_id
 
     const favoritesData = await actModel.getFavoritesByAccount(account_id)
+    console.log("favoritesData: ", favoritesData)
 
     res.render("account/favorites", {
         title: "Your Favorites",

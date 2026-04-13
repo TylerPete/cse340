@@ -13,3 +13,8 @@
   <input type="hidden" name="inv_id" value="<%= inv_id %>">
   <button type="submit">Add to Favorites</button>
 </form>
+
+<form method="post" action="/account/favorite/delete">
+  <input type="hidden" name="inv_id" value="<%= inv_id %>">
+  <button type="submit">Remove Favorite</button>
+</form>

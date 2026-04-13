@@ -116,12 +116,14 @@ async function deleteFavorite(account_id, inv_id) {
 }
 
 /* ***************************************************
- * Return favorite inventory item id's from account_id
+ * Return favorite inventory data from account_id
  * ************************************************* */
 async function getFavoritesByAccount(account_id) {
     try {
-        const sql = "SELECT * FROM favorite WHERE account_id = $1"
-        return await pool.query(sql, [account_id])
+        const sql = "SELECT i.inv_id, i.inv_make, i.inv_model, i.inv_thumbnail, i.inv_price FROM favorite AS f JOIN inventory AS i ON f.inv_id = i.inv_id WHERE f.account_id = $1;"
+        const result = await pool.query(sql, [account_id])
+
+        return result.rows;
     } catch (error) {
         return error.message
     }
