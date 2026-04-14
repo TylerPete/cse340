@@ -16,6 +16,8 @@
 <h2>Welcome, <%- accountData.account_firstname %></h2>
 
 <p><a title="Click to update account information" href="/account/update/<%= accountData.account_id %>">Update account information</a></p>
+<p><a title="Click to view favorite vehicles" href="/account/favorites">Your Favorite Vehicles</a></p>
+
 
 <% if (managementAccess) { %>
     <h3>Inventory Management</h3>

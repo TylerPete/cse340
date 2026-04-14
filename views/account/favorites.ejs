@@ -3,7 +3,7 @@
 <% if (favorites.length > 0) { %>
     <ul>
         <% favorites.forEach(vehicle => { %>
-            <li><%= vehicle.inv_make %> <%= vehicle.inv_model %></li>
+            <li><a href="/inv/detail/<%= vehicle.inv_id %>"><%= vehicle.inv_make %> <%= vehicle.inv_model %></a></li>
         <% }) %>
     </ul>
 <% } else { %>

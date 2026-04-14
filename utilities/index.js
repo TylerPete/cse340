@@ -21,6 +21,7 @@ Util.getNav = async function (req, res, next) {
         "</a>"
         list += "</li>"
     })
+    list += '<li><a href="/account/favorites" title="Your favorites">Favorites</a></li>'
     list += "</ul>"
     return list
 }
