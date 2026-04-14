@@ -190,9 +190,16 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--dark-background-or-text);
 }
 
+#inv-display form {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
 .namePrice {
   text-align: center;
 }
+
+
 
 .namePrice>h2 {
     font-size: 1.25em;

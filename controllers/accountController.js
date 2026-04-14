@@ -8,7 +8,7 @@ require("dotenv").config()
  * Deliver login view
  * ************************ */
 async function buildLogin(req, res, next) {
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav(req, res)
     res.render("account/login", {
         title: "Login",
         nav,
@@ -20,7 +20,7 @@ async function buildLogin(req, res, next) {
  * Deliver registration view
  * ************************ */
 async function buildRegistration(req, res, next) {
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav(req, res)
     res.render("account/registration", {
         title: "Register",
         nav,
@@ -32,7 +32,7 @@ async function buildRegistration(req, res, next) {
  * Process Registration
  * ******************** */
 async function registerAccount(req, res) {
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav(req, res)
     const { account_firstname, account_lastname, account_email, account_password } = req.body
 
     // Hash the password before storing
@@ -87,7 +87,7 @@ async function registerAccount(req, res) {
  * Process login request
  * ********************** */
 async function accountLogin(req, res) {
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav(req, res)
     const { account_email, account_password } = req.body
     const accountData = await actModel.getAccountByEmail(account_email)
     if (!accountData) {
@@ -129,7 +129,7 @@ async function accountLogin(req, res) {
  * Deliver account management view
  * ************************ */
 async function buildAccountManagement(req, res, next) {
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav(req, res)
     res.render("account/management.ejs", {
         title: "Account Management",
         nav,
@@ -151,7 +151,7 @@ async function logOut(req, res, next) {
  * Deliver update account info view
  * ************************ */
 async function buildUpdateAccount(req, res, next) {
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav(req, res)
     const account_id = req.params.accountId
 
     const itemData = await actModel.getAccountDetailsById(account_id)
@@ -171,7 +171,7 @@ async function buildUpdateAccount(req, res, next) {
  * Process account update
  * ******************** */
 async function updateAccount(req, res) {
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav(req, res)
     const { account_firstname, account_lastname, account_email, account_id } = req.body
 
     const updateResult = await actModel.updateAccount(
@@ -211,7 +211,7 @@ async function updateAccount(req, res) {
  * Process password change
  * ******************** */
 async function changePassword(req, res) {
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav(req, res)
     const { account_firstname_hidden, account_lastname_hidden, account_email_hidden, account_password, account_id } = req.body
 
     // Hash the password before storing
@@ -280,7 +280,7 @@ async function addFavorite(req, res) {
  * Delete favorite
  * ************ */
 async function deleteFavorite(req, res) {
-    const { inv_id } = req.body
+    const { inv_id, returnTo } = req.body
     const account_id = res.locals.accountData.account_id
 
     const deleteFavoriteResult = await actModel.deleteFavorite(account_id, inv_id)
@@ -291,7 +291,7 @@ async function deleteFavorite(req, res) {
         req.flash("notice", "Favorite not found.")
     }
 
-    res.redirect(`/inv/detail/${inv_id}`)
+    res.redirect(returnTo || `/inv/detail/${inv_id}`)
 }
 
 /* **************************
@@ -300,7 +300,7 @@ async function deleteFavorite(req, res) {
 async function buildFavoritesView(req, res, next) {
     console.log("buildFavoritesView hit")
 
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav(req, res)
 
     let favoritesData;
 

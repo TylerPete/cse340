@@ -66,7 +66,7 @@ validate.checkRegData = async (req, res, next) => {
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
-        let nav = await utilities.getNav()
+        let nav = await utilities.getNav(req, res)
         res.render("account/registration", {
             errors,
             title: "Registration",
@@ -119,7 +119,7 @@ validate.checkLoginData = async (req, res, next) => {
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
-        let nav = await utilities.getNav()
+        let nav = await utilities.getNav(req, res)
         res.render("account/login", {
             errors,
             title: "Login",
@@ -182,7 +182,7 @@ validate.checkUpdateData = async (req, res, next) => {
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
-        let nav = await utilities.getNav()
+        let nav = await utilities.getNav(req, res)
         res.render("account/update", {
             errors,
             title: "Edit Account",
@@ -226,7 +226,7 @@ validate.checkChangePasswordData = async (req, res, next) => {
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
-        let nav = await utilities.getNav()
+        let nav = await utilities.getNav(req, res)
         res.render("account/update", {
             errors,
             title: "Edit Account",

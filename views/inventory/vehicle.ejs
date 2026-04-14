@@ -17,7 +17,8 @@
   <% } else { %>
     <form method="post" action="/account/favorite/delete">
       <input type="hidden" name="inv_id" value="<%= inv_id %>">
-      <button type="submit">Remove Favorite</button>
+      <input type="hidden" name="returnTo" value="/inv/detail/<%= inv_id %>">
+      <button type="submit">Remove from Favorites</button>
     </form>
   <% } %>
 <% } %>

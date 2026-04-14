@@ -33,7 +33,7 @@ validate.checkClassificationData = async (req, res, next) => {
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
-        let nav = await utilities.getNav()
+        let nav = await utilities.getNav(req, res)
         res.render("inventory/add-classification", {
             errors,
             title: "Add Classification",
@@ -119,7 +119,7 @@ validate.checkInventoryData = async (req, res, next) => {
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
-        let nav = await utilities.getNav()
+        let nav = await utilities.getNav(req, res)
         let classificationList = await utilities.buildClassificationList(req.body.classification_id)
         res.render("inventory/add-inventory", {
             errors,
@@ -150,7 +150,7 @@ validate.checkUpdateData = async (req, res, next) => {
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
-        let nav = await utilities.getNav()
+        let nav = await utilities.getNav(req, res)
         let classificationList = await utilities.buildClassificationList(req.body.classification_id)
         res.render("inventory/edit-inventory", {
             errors,
