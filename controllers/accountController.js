@@ -295,6 +295,7 @@ async function addFavorite(req, res) {
  * ************ */
 async function deleteFavorite(req, res) {
     const inv_id = parseInt(req.body.inv_id)
+    const { returnTo } = req.body
     if (!inv_id || isNaN(inv_id)) {
         req.flash("notice", "Invalid vehicle selection.")
         return res.redirect("/")
