@@ -11,6 +11,11 @@ invCont.buildByClassificationId = async function (req, res, next) {
     const classification_id = req.params.classificationId
     const data = await invModel.getInventoryByClassificationId(classification_id)
     
+    if (!data || data.length === 0) {
+        req.flash("notice", "Classification does not exist. Please try again.")
+        res.redirect("/")
+    }
+
     let grid
     let title
     if (data.length > 0) {
@@ -35,7 +40,13 @@ invCont.buildByClassificationId = async function (req, res, next) {
  * ****************** */
 invCont.buildByInventoryId = async function (req, res, next) {
     const inventory_id = req.params.inventoryId
+
     const data = await invModel.getVehicleDetailsByInventoryId(inventory_id)
+    if (!data || data.length === 0) {
+        req.flash("notice", "Vehicle not found. Please try again.")
+        res.redirect("/")
+    }
+    
     const grid = await utilities.buildVehicleDetailsGrid(data)
     let nav = await utilities.getNav(req, res)
     const year = data[0].inv_year

@@ -1,5 +1,6 @@
 const utilities = require("../utilities/")
 const actModel = require("../models/account-model")
+const invModel = require("../models/inventory-model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -261,16 +262,29 @@ async function changePassword(req, res) {
 /* ***************
  * Add favorite
  * ************* */
-async function addFavorite(req, res) {
-    const { inv_id } = req.body
-    const account_id = res.locals.accountData.account_id
+async function addFavorite(req, res) { 
+    const inv_id = parseInt(req.body.inv_id)
+    if (!inv_id || isNaN(inv_id)) {
+        req.flash("notice", "Invalid vehicle selection.")
+        return res.redirect("/")
+    }
+    const vehicle = await invModel.getVehicleDetailsByInventoryId(inv_id)
+    if (!vehicle || vehicle.length === 0) {
+        req.flash("notice", "Vehicle not found.")
+        return res.redirect("/")
+    }
 
-    const addFavoriteResult = await actModel.addFavorite(account_id, inv_id)
-
-    if (addFavoriteResult) {
-        req.flash("notice", "Vehicle added to favorites.")
+    if (res.locals.loggedin) {
+        const account_id = res.locals.accountData.account_id
+        const addFavoriteResult = await actModel.addFavorite(account_id, inv_id)
+    
+        if (addFavoriteResult) {
+            req.flash("notice", "Vehicle added to favorites.")
+        } else {
+            req.flash("notice", "Vehicle is already in your favorites.")
+        }
     } else {
-        req.flash("notice", "Vehicle is already in your favorites.")
+        req.flash("notice", "You must be logged in to complete this action.")
     }
 
     res.redirect(`/inv/detail/${inv_id}`)
@@ -280,15 +294,28 @@ async function addFavorite(req, res) {
  * Delete favorite
  * ************ */
 async function deleteFavorite(req, res) {
-    const { inv_id, returnTo } = req.body
-    const account_id = res.locals.accountData.account_id
+    const inv_id = parseInt(req.body.inv_id)
+    if (!inv_id || isNaN(inv_id)) {
+        req.flash("notice", "Invalid vehicle selection.")
+        return res.redirect("/")
+    }
+    const vehicle = await invModel.getVehicleDetailsByInventoryId(inv_id)
+    if (!vehicle || vehicle.length === 0) {
+        req.flash("notice", "Vehicle not found.")
+        return res.redirect("/")
+    }
 
-    const deleteFavoriteResult = await actModel.deleteFavorite(account_id, inv_id)
-    
-    if (deleteFavoriteResult) {
-        req.flash("notice", "Vehicle removed from favorites.")
+    if (res.locals.loggedin) {
+        const account_id = res.locals.accountData.account_id
+        const deleteFavoriteResult = await actModel.deleteFavorite(account_id, inv_id)
+        
+        if (deleteFavoriteResult) {
+            req.flash("notice", "Vehicle removed from favorites.")
+        } else {
+            req.flash("notice", "Favorite not found.")
+        }
     } else {
-        req.flash("notice", "Favorite not found.")
+        req.flash("notice", "You must be logged in to complete this action.")
     }
 
     res.redirect(returnTo || `/inv/detail/${inv_id}`)
