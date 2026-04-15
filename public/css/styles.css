@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #top-header {
   display: grid;
-  grid-template-columns: 7fr 2fr;
+  grid-template-columns: 14fr 5fr;
   margin: 1rem 5px;
 }
 
@@ -49,6 +49,11 @@ h1, h2, h3, h4, h5, h6 {
 
 #tools {
   text-align: right;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 10px;
 }
 
 #tools>a {
@@ -64,6 +69,7 @@ h1, h2, h3, h4, h5, h6 {
 .nav-bar ul {
   display: flex;
   justify-content: space-around;
+  text-align: center;
   padding: 0;
 }
 
@@ -71,11 +77,20 @@ h1, h2, h3, h4, h5, h6 {
   list-style: none;
   line-height: 44px;
   cursor: pointer;
+  width: 100%;
+  color: white;
+}
+
+.nav-bar li:hover {
+  background-color: var(--light-grey-contrast);
+  color: var(--dark-background-or-text);
 }
 
 .nav-bar>ul>li>a {
-    color: white;
+    color: inherit;
     text-decoration: none;
+    display: block;
+    width: 100%;
 }
 
 .notice {
